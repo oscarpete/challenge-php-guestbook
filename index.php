@@ -1,9 +1,12 @@
 <?php
+declare(strict_types=1);
+
 ini_set('display_errors', '1');
 ini_set('display_startup_errors', '1');
 error_reporting(E_ALL);
 
-
+require "classes/Post.php";
+require "classes/PostLoader.php";
 
 //image this code could be a complex query
 //$users = ['John Doe', 'Joe Doe', 'John Smith', 'An Onymous'];
@@ -18,14 +21,14 @@ error_reporting(E_ALL);
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>My site</title>
+    <title>My Guestbook!</title>
 </head>
 <body>
 <h1>Welcome to my site!</h1>
 <p>What would you like to share with us today?</p>
 <br>
 <div>
-    <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+    <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
         <label for="title"> Title:
             <input type="text" name="title">
         </label>
@@ -47,8 +50,8 @@ error_reporting(E_ALL);
 <h2>Recent articles</h2>
 <?php
 
-$file = "guestbook.txt";
-if (isset($_POST['title'])!= "" && isset($_POST['content'])!= "" &&  isset($_POST['name'])!= "") {
+$file = "post.json";
+if (isset($_POST['title']) != "" && isset($_POST['content']) != "" && isset($_POST['name']) != "") {
 
 
     $title = $_POST['title'];
@@ -57,11 +60,14 @@ if (isset($_POST['title'])!= "" && isset($_POST['content'])!= "" &&  isset($_POS
     $fp = fopen($file, "r+");
     $old = fread($fp, filesize($file));
 
-    $dateOfEntry = date("j-n-y");
+    $dateOfEntry = date("F j, Y, g:i a");
     $content = htmlspecialchars($content);
     $content = stripcslashes($content);
 
-    $entry = "<p><b>$title</b><br> written by <b>$name</b><br> on <i>$dateOfEntry</i>;<br> <br>$content</p> \n";
+    $entry = "<div><h4> Title:".$title."</h4><br><h5>".$name."</h5><br><h5>on <i>".$dateOfEntry."</i></h5><br><p>".$content."</p></div>";
+
+
+
 
     rewind($fp);
     fputs($fp, "$entry \n $old");

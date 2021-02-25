@@ -9,14 +9,15 @@ class Post
 
     private string $title;
     private string $content;
-    private string $author;
-    private DateTimeImmutable $date;
+    private string $name;
+    private $date;
 
 
-    public function __construct(string $title, string $content, string $author, DateTimeImmutable $date){
-        $this->title = $_POST['title'];
-        $this->content= $_POST['content'];
-        $this->author= $_POST['name'];
+    public function __construct(string $title, string $content, string $name)
+    {
+        $this->title = $title;
+        $this->content = $content;
+        $this->name = $name;
 
     }
 
@@ -55,27 +56,23 @@ class Post
     /**
      * @return mixed|string
      */
-    public function getAuthor(): mixed
+    public function getName(): mixed
     {
-        return $this->author;
+        return $this->name;
     }
 
     /**
-     * @param mixed|string $author
+     * @param mixed|string $name
      */
-    public function setAuthor(mixed $author): void
+    public function setName(mixed $name): void
     {
-        $this->author = $author;
+        $this->name = $name;
     }
 
-    public function getDate()
+    public function returnDate()
     {
         return $this->date;
     }
-
-
-
-
 
 
 }
