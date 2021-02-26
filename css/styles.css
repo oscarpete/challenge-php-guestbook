@@ -1,0 +1,26 @@
+body{
+    background-color: #121212;
+    color: #BB86FC;
+    margin: auto;
+    max-width: 500px;
+}
+
+.inner{
+    background-color: #332940;
+    color: #BB86FC;
+}
+
+.forma {
+    max-width: 500px;
+    margin: auto;
+    padding: 10px;
+
+}
+
+.boton{
+    background-color: yellow;
+}
+
+h1, p {
+    margin: auto;
+}
