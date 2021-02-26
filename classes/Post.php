@@ -69,6 +69,11 @@ class Post
         $this->name = $name;
     }
 
+    function getDate($time)
+    {
+        $this->date = $time;
+    }
+
     public function returnDate()
     {
         return $this->date;
